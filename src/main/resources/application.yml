@@ -1,6 +1,6 @@
 spring:
   application:
-    name: demo
+    name: contacts-service
   data:
     mongodb:
       uri: mongodb://localhost:27017/contacts

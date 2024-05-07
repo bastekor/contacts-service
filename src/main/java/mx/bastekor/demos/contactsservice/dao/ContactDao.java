@@ -2,6 +2,7 @@ package mx.bastekor.demos.contactsservice.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mx.bastekor.demos.contactsservice.exception.ContactNotFoundException;
 import mx.bastekor.demos.contactsservice.model.Contact;
 import mx.bastekor.demos.contactsservice.repository.ContactsRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -25,12 +26,12 @@ public class ContactDao implements IContactDao {
 
     @Override
     public Contact getContact(final String userId, final String contactId) {
-        return repository.findByUserIdAndContactId(userId, contactId);
+        return repository.findByUserIdAndContactId(userId, contactId)
+                .orElseThrow(ContactNotFoundException::new);
     }
 
     @Override
     public void createContact(Contact contact) {
-        log.info("Creating contact {}", contact);
         repository.save(contact);
     }
 

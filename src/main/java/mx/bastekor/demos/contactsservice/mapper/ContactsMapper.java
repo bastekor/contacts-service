@@ -6,6 +6,7 @@ import mx.bastekor.demos.contactsservice.model.Contact;
 import mx.bastekor.demos.contactsservice.model.ContactRequest;
 import mx.bastekor.demos.contactsservice.model.ContactResponse;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,18 +31,20 @@ public final class ContactsMapper {
         }
         return null;
     }
+
     public static ContactResponse toContactResponse(Contact contact) {
         if (Objects.nonNull(contact)) {
             return new ContactResponse(
-                 contact.getContactId(),
-                 contact.getName(),
-                 contact.getSurName(),
-                 contact.getAlias(),
-                 contact.getPhoneNumber(),
-                 contact.getEmail(),
-                 contact.getAddress(),
-                 true
-                 );
+                    contact.getContactId(),
+                    contact.getName(),
+                    contact.getSurName(),
+                    contact.getAlias(),
+                    contact.getPhoneNumber(),
+                    contact.getEmail(),
+                    contact.getAddress(),
+                    LocalDateTime.now().toString(),
+                    true
+            );
         }
         return null;
     }

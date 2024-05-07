@@ -1,10 +1,12 @@
 package mx.bastekor.demos.contactsservice.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import mx.bastekor.demos.contactsservice.model.ContactRequest;
 import mx.bastekor.demos.contactsservice.model.ContactResponse;
 import mx.bastekor.demos.contactsservice.service.IContactsService;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +33,7 @@ public class ContactsController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(produces = {"application/json"})
-    public List<ContactResponse> getAllContact(@RequestHeader("Authorization") String userId) {
+    public List<ContactResponse> getAllContacts(@RequestHeader("Authorization") String userId) {
         return contactsService.findAllContactsByUserId(userId);
     }
 
@@ -45,7 +47,8 @@ public class ContactsController {
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = {"application/json"}, produces = {"application/json"})
-    public ContactResponse createContact(@RequestHeader("Authorization") String userId, @RequestBody ContactRequest contactRequest) {
+    public ContactResponse createContact(@RequestHeader("Authorization") String userId,
+                                         @Validated @RequestBody ContactRequest contactRequest) {
         return contactsService.addContact(userId, contactRequest);
     }
 

@@ -17,6 +17,8 @@ public record ContactResponse(
         String email,
         @JsonProperty("address")
         String address,
+        @JsonProperty("date")
+        String date,
         @JsonProperty("photo")
         boolean photo
 ) {

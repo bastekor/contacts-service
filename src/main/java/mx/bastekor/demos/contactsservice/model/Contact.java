@@ -1,6 +1,8 @@
 package mx.bastekor.demos.contactsservice.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -10,6 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @ToString
 @Document("contact-registers")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Contact {
 
     @Id
