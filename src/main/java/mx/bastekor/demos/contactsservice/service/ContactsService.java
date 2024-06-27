@@ -29,7 +29,7 @@ public class ContactsService implements IContactsService {
     }
 
     @Override
-    public ContactResponse addContact(String userId, ContactRequest contactRequest) {
+    public ContactResponse addContact(final String userId, final ContactRequest contactRequest) {
 
         log.info("addContact request: {}", contactRequest);
         var contact = ContactsMapper.toContact(userId, contactRequest);
@@ -46,7 +46,7 @@ public class ContactsService implements IContactsService {
         var contact = ContactsMapper.toContact(userId, contactRequest);
         contact.setId(contactId);
         contact.setContactId(contactId);
-        contactDao.updateContact(userId, contactId, contact);
+        contactDao.updateContact(contact);
         return ContactsMapper.toContactResponse(contact);
     }
 

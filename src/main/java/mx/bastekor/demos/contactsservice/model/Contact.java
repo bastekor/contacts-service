@@ -1,19 +1,19 @@
 package mx.bastekor.demos.contactsservice.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @ToString
-@Document("contact-registers")
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity(name = "Contacts")
 public class Contact {
 
     @Id

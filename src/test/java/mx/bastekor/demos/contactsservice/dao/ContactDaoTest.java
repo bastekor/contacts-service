@@ -1,11 +1,10 @@
 package mx.bastekor.demos.contactsservice.dao;
 
 import mx.bastekor.demos.contactsservice.model.Contact;
-import mx.bastekor.demos.contactsservice.repository.ContactsRepository;
+import mx.bastekor.demos.contactsservice.repository.DataBaseContactsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.when;
 class ContactDaoTest {
 
     @Mock
-    private ContactsRepository contactsRepository;
+    private DataBaseContactsRepository mongodbContactsRepository;
 
     @InjectMocks
     private ContactDao contactDao;
@@ -51,7 +50,7 @@ class ContactDaoTest {
     @Test
     void getContacts() {
 
-        when(contactsRepository.findByUserId(anyString())).thenReturn(contacts);
+        when(mongodbContactsRepository.findByUserId(anyString())).thenReturn(contacts);
         List<Contact> contacts = contactDao.getContacts(USER_ID);
 
 //        contacts.forEach(System.out::println);
@@ -62,7 +61,7 @@ class ContactDaoTest {
 
     @Test
     void getContact() {
-        when(contactsRepository.findByUserIdAndContactId(anyString(), anyString()))
+        when(mongodbContactsRepository.findByUserIdAndContactId(anyString(), anyString()))
                 .thenReturn(Optional.of(this.contacts.get(2)));
         Contact contact = contactDao.getContact(USER_ID, CONTACT_ID);
 
@@ -75,33 +74,33 @@ class ContactDaoTest {
     @Test
     void createContact() {
 
-        when(contactsRepository.save(any())).thenReturn(new Contact());
+        when(mongodbContactsRepository.save(any())).thenReturn(new Contact());
 
         var contact = new Contact();
         contactDao.createContact(contact);
 
-        verify(contactsRepository, times(1)).save(any());
+        verify(mongodbContactsRepository, times(1)).save(any());
     }
 
     @Test
     void updateContact() {
 
-        when(contactsRepository.save(any())).thenReturn(new Contact());
+        when(mongodbContactsRepository.save(any())).thenReturn(new Contact());
 
         var contact = new Contact();
-        contactDao.updateContact(USER_ID, CONTACT_ID, contact);
+        contactDao.updateContact(contact);
 
-        verify(contactsRepository, times(1)).save(any());
+        verify(mongodbContactsRepository, times(1)).save(any());
     }
 
     @Test
     void deleteContact() {
 
-        Mockito.doNothing().when(contactsRepository).deleteByUserIdAndContactId(anyString(), anyString());
+        Mockito.doNothing().when(mongodbContactsRepository).deleteByUserIdAndContactId(anyString(), anyString());
 
         var contact = new Contact();
         contactDao.deleteContact(USER_ID, CONTACT_ID);
 
-        verify(contactsRepository, times(1)).deleteByUserIdAndContactId(anyString(), anyString());
+        verify(mongodbContactsRepository, times(1)).deleteByUserIdAndContactId(anyString(), anyString());
     }
 }

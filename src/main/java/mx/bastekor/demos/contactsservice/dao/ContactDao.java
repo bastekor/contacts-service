@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mx.bastekor.demos.contactsservice.exception.ContactNotFoundException;
 import mx.bastekor.demos.contactsservice.model.Contact;
-import mx.bastekor.demos.contactsservice.repository.ContactsRepository;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import mx.bastekor.demos.contactsservice.repository.DataBaseContactsRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,9 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ContactDao implements IContactDao {
 
-    private final ContactsRepository repository;
-
-    private final MongoTemplate mongoTemplate;
+    private final DataBaseContactsRepository repository;
 
     @Override
     public List<Contact> getContacts(final String userId) {
@@ -36,7 +33,7 @@ public class ContactDao implements IContactDao {
     }
 
     @Override
-    public void updateContact(final String userId, final String contactId, final Contact contact) {
+    public void updateContact(final Contact contact) {
         repository.save(contact);
     }
 

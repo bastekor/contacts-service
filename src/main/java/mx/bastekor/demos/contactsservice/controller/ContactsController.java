@@ -30,21 +30,18 @@ public class ContactsController {
 
     private final IContactsService contactsService;
 
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(produces = {"application/json"})
     public List<ContactResponse> getAllContacts(@RequestHeader("Authorization") String userId) {
         return contactsService.findAllContactsByUserId(userId);
     }
 
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{id}", produces = {"application/json"})
     public ContactResponse getContact(@RequestHeader("Authorization") String userId, @PathVariable("id") String contactId) {
         return contactsService.findContactById(userId, contactId);
     }
 
-    @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = {"application/json"}, produces = {"application/json"})
     public ContactResponse createContact(@RequestHeader("Authorization") String userId,
@@ -52,7 +49,6 @@ public class ContactsController {
         return contactsService.addContact(userId, contactRequest);
     }
 
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{id}", consumes = {"application/json"}, produces = {"application/json"})
     public ContactResponse updateContact(
@@ -62,7 +58,6 @@ public class ContactsController {
         return contactsService.updateContact(userId, contactId, contactRequest);
     }
 
-    @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/{id}", produces = {"application/json"})
     public void deleteContact(

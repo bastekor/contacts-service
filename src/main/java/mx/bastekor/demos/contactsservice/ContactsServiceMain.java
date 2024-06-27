@@ -1,8 +1,7 @@
 package mx.bastekor.demos.contactsservice;
 
-import mx.bastekor.demos.contactsservice.dao.IContactDao;
 import mx.bastekor.demos.contactsservice.model.Contact;
-import mx.bastekor.demos.contactsservice.repository.ContactsRepository;
+import mx.bastekor.demos.contactsservice.repository.DataBaseContactsRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +20,7 @@ public class ContactsServiceMain {
 	}
 
 	@Bean
-	CommandLineRunner init(ContactsRepository contactsRepository) {
+	CommandLineRunner init(DataBaseContactsRepository dataBaseContactsRepository) {
 
 		var user001 = randomUUID().toString();
 		var user002 = randomUUID().toString();
@@ -33,13 +32,13 @@ public class ContactsServiceMain {
 
 		return args -> {
 			List<Contact> contacts = Arrays.asList(
-					new Contact(user001, USER_ID, user001, "Luis Erik", "Diaz Zuñiga", "Bastek", "5585975672",  "luiserik.diaz@mail.com", "Cuchilla del Tesoro"),
+					new Contact(user001, USER_ID, user001, "Luis Erik", "Diaz Zuñiga", "Bastekor", "5585975672",  "luiserik.diaz@mail.com", "Cuchilla del Tesoro"),
 					new Contact(user002, USER_ID, user002, "Denisse Viridiana", "Diaz Morquecho", "Devii", "1234567890",  "denisseviridiana.diaz@mail.com", "Cuchilla del Tesoro"),
-					new Contact(user003, USER_ID, user003, "Ethan Dominik", "Diaz Diaz", "Tatan", "1234567890",  "ethandominik.diaz@mail.com", "Cuchilla del Tesoro"),
+					new Contact(user003, USER_ID, user003, "Ethan Dominik", "Diaz Diaz", "Cacheton", "1234567890",  "ethandominik.diaz@mail.com", "Cuchilla del Tesoro"),
 					new Contact(user004, USER_ID, user004, "Ikhal Dimitri", "Diaz Diaz", "Papadon", "1234567890",  "ikhaldimitri.diaz@mail.com", "Cuchilla del Tesoro")
 			);
+			dataBaseContactsRepository.saveAll(contacts);
 
-			contactsRepository.saveAll(contacts);
 		};
 	}
 }
